@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>L'application Taxawu a besoin d'accéder à votre caméra pour scanner des espèces</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>L'application Taxawu accède à vos photos pour identifier des espèces</string>
 </dict>
 </plist>
