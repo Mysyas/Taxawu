@@ -52,7 +52,8 @@ class _WidgetState extends State<WelcomeScreen> {
                                         0.7,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: AppColors.gris.withOpacity(0.2),
+                                      color:
+                                          AppColors.gris.withValues(alpha: 0.2),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                   )
@@ -73,9 +74,9 @@ class _WidgetState extends State<WelcomeScreen> {
                                                   .height *
                                               0.6,
                                           width: double.infinity,
-                                          color:
-                                              AppColors.gris.withOpacity(0.2),
-                                          child: Icon(Icons.broken_image,
+                                          color: AppColors.gris
+                                              .withValues(alpha: 0.2),
+                                          child: const Icon(Icons.broken_image,
                                               size: 40, color: AppColors.gris),
                                         );
                                       },
@@ -134,7 +135,7 @@ class _WidgetState extends State<WelcomeScreen> {
                           decoration: BoxDecoration(
                             color: isActive
                                 ? AppColors.vertFonce
-                                : AppColors.gris.withOpacity(0.3),
+                                : AppColors.gris.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
