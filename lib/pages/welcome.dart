@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:taxawu/helpers/welcome_slides.dart';
+import 'package:taxawu/models/slide_content.dart';
 import 'package:taxawu/pages/authentification.dart';
 import 'package:taxawu/theme/app_colors.dart';
 
@@ -11,19 +13,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WidgetState extends State<WelcomeScreen> {
   final PageController _controller = PageController();
   int currentSlide = 0;
-  final List<Map<String, String>> slides = [
-    {
-      "title": "Bienvenue,\ndans l'application",
-      "content": "Explorez et apprenez notre écosystème à travers des images",
-      "image":
-          "https://plus.unsplash.com/premium_photo-1675432656807-216d786dd468?q=80&w=990&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    {
-      "title": "Découvrez",
-      "content": "Naviguez facilement entre les contenus interactifs.",
-      "image": ""
-    }
-  ];
+  final List<SlideComponent> slides = WelcomeSlides.slides;
 
   void goToSlide(int index) {
     _controller.animateToPage(index,
@@ -55,57 +45,74 @@ class _WidgetState extends State<WelcomeScreen> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        slides[index]['image']!.isEmpty
-                            ? Container(
-                                height: 300,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: AppColors.gris.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.network(
-                                  slides[index]["image"]!,
-                                  height: 300,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      height: 300,
-                                      width: double.infinity,
+                        Expanded(
+                            child: slides[index].image.isEmpty
+                                ? Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.7,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
                                       color: AppColors.gris.withOpacity(0.2),
-                                      child: Icon(Icons.broken_image,
-                                          size: 40, color: AppColors.gris),
-                                    );
-                                  },
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Container(
-                                      height: 300,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(
+                                      slides[index].image,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.6,
                                       width: double.infinity,
-                                      alignment: Alignment.center,
-                                      child: const CircularProgressIndicator(
-                                        color: AppColors.vertClair,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.6,
+                                          width: double.infinity,
+                                          color:
+                                              AppColors.gris.withOpacity(0.2),
+                                          child: Icon(Icons.broken_image,
+                                              size: 40, color: AppColors.gris),
+                                        );
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.6,
+                                          width: double.infinity,
+                                          alignment: Alignment.center,
+                                          child:
+                                              const CircularProgressIndicator(
+                                            color: AppColors.vertClair,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )),
                         const SizedBox(height: 30),
                         Text(
-                          slides[index]["title"]!,
+                          slides[index].title,
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
                         const SizedBox(height: 15),
                         Text(
-                          slides[index]["content"]!,
+                          slides[index].content,
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
+                        const SizedBox(
+                          height: 20,
+                        )
                       ],
                     );
                   },
@@ -141,9 +148,11 @@ class _WidgetState extends State<WelcomeScreen> {
                           MaterialPageRoute(
                               builder: (context) => const AuthPage()));
                     },
-                    child: Row(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.green),
+                    child: const Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
+                      children: [
                         Text("Commencez"),
                         SizedBox(width: 8),
                         Icon(Icons.arrow_forward),
