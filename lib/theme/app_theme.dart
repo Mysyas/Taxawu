@@ -8,13 +8,13 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      scaffoldBackgroundColor: AppColors.blanc,
-      primaryColor: AppColors.vertFonce,
+      scaffoldBackgroundColor: AppColors.paper,
+      primaryColor: AppColors.greenDark,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.vertFonce,
-        primary: AppColors.vertFonce,
-        secondary: AppColors.orange,
-        surface: AppColors.blanc,
+        seedColor: AppColors.greenDark,
+        primary: AppColors.greenDark,
+        secondary: AppColors.orange_,
+        surface: AppColors.paper,
       ),
       textTheme: TextTheme(
         displayLarge: GoogleFonts.fredoka(
@@ -25,12 +25,12 @@ class AppTheme {
         headlineLarge: GoogleFonts.fredoka(
           fontSize: 28,
           fontWeight: FontWeight.bold,
-          color: AppColors.vertFonce,
+          color: AppColors.greenDark,
         ),
         headlineMedium: GoogleFonts.fredoka(
           fontSize: 22,
           fontWeight: FontWeight.w600,
-          color: AppColors.vertFonce,
+          color: AppColors.greenDark,
         ),
         titleLarge: GoogleFonts.fredoka(
           fontSize: 18,
@@ -61,7 +61,7 @@ class AppTheme {
         ),
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.vertFonce,
+        backgroundColor: AppColors.greenDark,
         foregroundColor: AppColors.blanc,
         titleTextStyle: GoogleFonts.fredoka(
           fontSize: 20,
@@ -72,14 +72,14 @@ class AppTheme {
       checkboxTheme: CheckboxThemeData(
         fillColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return AppColors.vertOlive;
+            return AppColors.greenDark;
           }
           return AppColors.blanc;
         }),
       ),
       tabBarTheme: TabBarThemeData(
         indicator: BoxDecoration(
-            color: AppColors.vertFonce,
+            color: AppColors.greenDark,
             borderRadius: BorderRadius.circular(30)),
         dividerColor: Colors.transparent,
         indicatorSize: TabBarIndicatorSize.tab,
