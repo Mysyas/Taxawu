@@ -52,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-          //color: AppColors.blanc.withOpacity(0.8),
           padding: const EdgeInsets.all(25),
           child: Column(children: [
             const Card(
@@ -159,11 +158,10 @@ class _LoginPageState extends State<LoginPage> {
                     height: 55,
                     child: ElevatedButton(
                         onPressed: login,
-                        child: Text("Se connecter",
-                            style: TextStyle(fontSize: 16)),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.orange,
-                        )),
+                            backgroundColor: AppColors.orange_),
+                        child: const Text("Se connecter",
+                            style: TextStyle(fontSize: 16))),
                   ),
                   const Row(
                     children: [
@@ -212,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(15)),
-                                    side: BorderSide(
+                                    side: const BorderSide(
                                         color: AppColors.lineColor, width: 1)),
                               ))),
                       Expanded(
@@ -231,7 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(15)),
-                                    side: BorderSide(
+                                    side: const BorderSide(
                                         color: AppColors.lineColor, width: 1)),
                               )))
                     ],

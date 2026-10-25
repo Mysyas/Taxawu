@@ -51,5 +51,9 @@
 	<string>L'application Taxawu a besoin d'accéder à votre caméra pour scanner des espèces</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>L'application Taxawu accède à vos photos pour identifier des espèces</string>
+	<key>NSMicrophoneUsageDescription</key>
+<string>Le microphone permet de rechercher des espèces par la voix.</string>
+<key>NSSpeechRecognitionUsageDescription</key>
+<string>La reconnaissance vocale permet de convertir votre voix en texte.</string>
 </dict>
 </plist>

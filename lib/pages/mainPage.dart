@@ -6,6 +6,7 @@ import 'package:taxawu/components/Cards/scanner_card.dart';
 import 'package:taxawu/helpers/especes_helper.dart';
 import 'package:taxawu/models/espece_model.dart';
 import 'package:taxawu/theme/app_colors.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 import '../components/Cards/espece_card.dart';
 
@@ -20,6 +21,9 @@ class _mainPageState extends State<mainPage> {
   List<Espece> species = [];
   Map<String, dynamic> icons = EspeceHelper.family_icons;
   Map<String, dynamic> icons_colors = EspeceHelper.family_colors;
+  final SpeechToText _speech = SpeechToText();
+  final TextEditingController _controller = TextEditingController();
+  bool _isListening = false;
   @override
   void initState() {
     super.initState();
@@ -33,7 +37,72 @@ class _mainPageState extends State<mainPage> {
   @override
   void dispose() {
     super.dispose();
+    _speech.stop();
     species = [];
+  }
+
+  Future<void> _parler() async {
+    if (_isListening) {
+      await _speech.stop();
+      if (mounted) {
+        setState(() => _isListening = false);
+      }
+      return;
+    }
+
+    final disponible = await _speech.initialize(
+      onStatus: (status) {
+        if (status == 'notListening' || status == 'done') {
+          if (mounted) {
+            setState(() => _isListening = false);
+          }
+        }
+      },
+      onError: (error) {
+        if (mounted) {
+          setState(() => _isListening = false);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Erreur vocale : ${error.errorMsg}',
+              ),
+            ),
+          );
+        }
+      },
+    );
+
+    if (!disponible) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Reconnaissance vocale indisponible.',
+          ),
+        ),
+      );
+      return;
+    }
+
+    if (!mounted) return;
+    setState(() => _isListening = true);
+
+    await _speech.listen(
+      localeId: 'fr_FR',
+      onResult: (result) {
+        setState(() {
+          _controller.text = result.recognizedWords;
+          _controller.selection = TextSelection.collapsed(
+            offset: _controller.text.length,
+          );
+          species = EspeceHelper.allSpecies()
+              .where((e) => e.nom
+                  .toLowerCase()
+                  .contains(result.recognizedWords.toLowerCase()))
+              .toList();
+        });
+      },
+    );
   }
 
   @override
@@ -52,7 +121,7 @@ class _mainPageState extends State<mainPage> {
                     flex: 3,
                     child: Container(
                       alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage("assets/images/logo.png"),
                               fit: BoxFit.fitHeight)),
@@ -64,12 +133,10 @@ class _mainPageState extends State<mainPage> {
                       child: IconButton(
                           onPressed: () {},
                           icon: const Badge(
-                              child: Icon(Icons.notifications_none),
-                              isLabelVisible: false)),
+                              isLabelVisible: false,
+                              child: Icon(Icons.notifications_none))),
                     )),
-                Expanded(
-                    flex: 1,
-                    child: Container(child: Avatar(subtituteText: "AN")))
+                const Expanded(flex: 1, child: Avatar(subtituteText: "AN"))
               ],
             ),
           ),
@@ -97,9 +164,10 @@ class _mainPageState extends State<mainPage> {
                 size: 32,
               ),
               const SizedBox(width: 15),
-              const Expanded(
+              Expanded(
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: _controller,
+                  decoration: const InputDecoration(
                     hintText: "Rechercher une espèce, un lieu...",
                     labelStyle: TextStyle(fontSize: 11),
                     hintStyle: TextStyle(
@@ -109,6 +177,15 @@ class _mainPageState extends State<mainPage> {
                     ),
                     border: InputBorder.none,
                   ),
+                  onChanged: (value) {
+                    debugPrint('Valeur :${value}');
+                    setState(() {
+                      species = EspeceHelper.allSpecies()
+                          .where((e) =>
+                              e.nom.toLowerCase().contains(value.toLowerCase()))
+                          .toList();
+                    });
+                  },
                 ),
               ),
               Container(
@@ -119,12 +196,10 @@ class _mainPageState extends State<mainPage> {
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(
-                  onPressed: () {
-                    // Action microphone
-                  },
+                  onPressed: _parler,
                   icon: Icon(
-                    Icons.mic,
-                    color: Colors.green.shade700,
+                    _isListening ? Icons.square : Icons.mic_none,
+                    color: _isListening ? Colors.red : Colors.green.shade700,
                   ),
                 ),
               ),
