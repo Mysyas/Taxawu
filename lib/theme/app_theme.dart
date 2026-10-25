@@ -18,12 +18,12 @@ class AppTheme {
       ),
       textTheme: TextTheme(
         displayLarge: GoogleFonts.fredoka(
-          fontSize: 32,
+          fontSize: 22,
           fontWeight: FontWeight.w600,
           color: AppColors.blanc,
         ),
         headlineLarge: GoogleFonts.fredoka(
-          fontSize: 26,
+          fontSize: 28,
           fontWeight: FontWeight.bold,
           color: AppColors.vertFonce,
         ),

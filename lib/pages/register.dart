@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taxawu/theme/app_colors.dart';
 import 'package:taxawu/components/FormFields/Custom_form_field.dart';
-import 'package:taxawu/theme/app_theme.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
