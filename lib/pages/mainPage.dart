@@ -208,9 +208,9 @@ class _mainPageState extends State<mainPage> {
         ),
         const ScannerCard(),
         Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             alignment: Alignment.centerLeft,
-            child: Text("Catégories",
+            child: const Text("Catégories",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
         SizedBox(
           height: 55,

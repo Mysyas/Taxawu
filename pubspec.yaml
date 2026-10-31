@@ -16,6 +16,7 @@ dependencies:
   google_fonts: ^6.2.1
   community_material_icon: ^5.4.55
   speech_to_text: ^7.4.0
+  torch_light: ^1.1.0
 
 dev_dependencies:
   flutter_test:

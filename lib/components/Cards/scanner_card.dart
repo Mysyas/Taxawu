@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:taxawu/pages/scan_page.dart';
+import 'package:taxawu/pages/scanpage.dart';
 
 class ScannerCard extends StatelessWidget {
   const ScannerCard({super.key});
@@ -106,9 +108,16 @@ class ScannerCard extends StatelessWidget {
                 width: 280,
                 height: 50,
                 child: Padding(
-                    padding: EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(right: 10),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ScanPage(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         elevation: 12,
                         shadowColor: Colors.orange.withOpacity(.5),

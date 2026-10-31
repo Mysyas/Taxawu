@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taxawu/helpers/especes_helper.dart';
 import 'package:taxawu/models/espece_model.dart';
 import 'package:taxawu/theme/app_colors.dart';
@@ -22,7 +21,7 @@ class SpeciesCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(35),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),

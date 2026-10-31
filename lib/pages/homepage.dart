@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taxawu/components/NavigationBar/custom_bottomNavbar.dart';
 import 'package:taxawu/pages/explorepage.dart';
 import 'package:taxawu/pages/mainPage.dart';
+import 'package:taxawu/pages/scanpage.dart';
 import 'package:taxawu/theme/app_colors.dart';
 
 class Homepage extends StatefulWidget {
@@ -13,7 +14,11 @@ class Homepage extends StatefulWidget {
 
 class _HomePageState extends State<Homepage> {
   int currentIndex = 0;
-  final List<Widget> pages = [mainPage(), const explorePage()];
+  final List<Widget> pages = [
+    mainPage(),
+    const explorePage(),
+    const ScanPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
